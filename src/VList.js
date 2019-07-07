@@ -222,6 +222,8 @@ class VList {
         this._listDOM.appendChild(this._listContainerDOM)
         this._listDOM.addEventListener('scroll', this._onScroll.bind(this))
 
+        this._bootstrapListCleaner()
+
         // Init render
         this._render()
     }
@@ -266,6 +268,26 @@ class VList {
 
             this._scrollTo(offsetTop)
         }
+    }
+
+    /**
+     *
+     * Starts a interval at 150ms to search for all
+     * elementes tha were marked to beign deleted, and
+     * removes them.
+     *
+     * Inspired by
+     * @see https://github.com/sergi/virtual-list/blob/master/vlist.js
+     *
+     * @private
+     *
+     */
+    _bootstrapListCleaner() {
+        setInterval(() => {
+            document
+                .querySelectorAll('[data-rm="1"]')
+                .forEach(ele => this._listContainerDOM.removeChild(ele))
+        }, 150)
     }
 
     /**
@@ -496,7 +518,6 @@ class VList {
             )
 
         this._markOldToRemove()
-        this._enqueueRemoveOldElements()
 
         this._listContainerDOM.appendChild(fragment)
     }
@@ -508,6 +529,7 @@ class VList {
      * Is called before a new batch of elementes are render to the list container
      *
      * @private
+     * @deprecated
      *
      */
     _enqueueRemoveOldElements() {
@@ -569,7 +591,6 @@ class VList {
         }
 
         this._markOldToRemove()
-        this._enqueueRemoveOldElements()
 
         this._listContainerDOM.appendChild(fragment)
     }
