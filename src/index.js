@@ -6,12 +6,12 @@ import VList from './VList'
  * @param {Object} config
  * @param {HTMLElement} config.listElement
  * @param {Array} config.data
- * @param {(number|ItemSize)} config.itemSize
+ * @param {(number|Function)} config.itemSize
  * @param {number} [config.height]
  * @param {number} [config.width]
  * @param {boolean} config.fixedSize
- * @param {OffItems} config.offItems
- * @param {RenderItem} config.renderItem
+ * @param {Object} config.offItems
+ * @param {Function} config.renderItem
  * @returns {VList}
  *
  */
