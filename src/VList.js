@@ -179,12 +179,12 @@ class VList {
      * @param {Object} config
      * @param {HTMLElement} config.listElement
      * @param {Array} config.data
-     * @param {(number|Function)} config.itemSize
+     * @param {(number|ItemSize)} config.itemSize
      * @param {number} [config.height]
      * @param {number} [config.width]
      * @param {boolean} config.fixedSize
-     * @param {Object} config.offItems
-     * @param {function} config.renderItem
+     * @param {OffItems} config.offItems
+     * @param {RenderItem} config.renderItem
      *
      */
     constructor(config) {
