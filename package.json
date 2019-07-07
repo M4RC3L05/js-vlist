@@ -3,6 +3,7 @@
     "version": "1.0.0",
     "description": "",
     "main": "./dist/vlist.js",
+    "license": "MIT",
     "scripts": {
         "start": "parcel index.html --open",
         "build": "parcel build index.html"
