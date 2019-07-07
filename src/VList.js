@@ -113,7 +113,7 @@ class VList {
      * before and after the visible area of the list.
      *
      * @private
-     * @type {{top: number, bottom: number}}
+     * @type {Object}
      *
      */
     _offItems
@@ -183,7 +183,7 @@ class VList {
      * @param {number} [config.height]
      * @param {number} [config.width]
      * @param {boolean} config.fixedSize
-     * @param {{top: number, bottom: number}} config.offItems
+     * @param {Object} config.offItems
      * @param {function} config.renderItem
      *
      */

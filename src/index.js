@@ -10,8 +10,8 @@ import VList from './VList'
  * @param {number} [config.height]
  * @param {number} [config.width]
  * @param {boolean} config.fixedSize
- * @param {{top: number, bottom: number}} config.offItems
- * @param {(index: number, isScrolling: boolean, item: any, styles: any) => HTMLElement} config.renderItem
+ * @param {Object} config.offItems
+ * @param {Function} config.renderItem
  * @returns {VList}
  *
  */
