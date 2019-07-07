@@ -19,4 +19,4 @@ function VirtualList(config) {
     return new VList(config)
 }
 
-export { VList, VirtualList }
+export default VirtualList

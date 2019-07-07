@@ -17,7 +17,7 @@ export default [
         output: {
             file: './dist/umd/vlist.dev.js',
             format: 'umd',
-            name: 'VList',
+            name: 'VirtualList',
             indent: true,
             sourcemap: 'inline'
         },
@@ -32,8 +32,8 @@ export default [
         output: {
             file: './dist/umd/vlist.prod.js',
             format: 'umd',
-            name: 'VList',
-            indent: true
+            name: 'VirtualList',
+            indent: false
         },
         plugins: [
             babel({
@@ -41,9 +41,7 @@ export default [
             }),
             terser({
                 compress: {
-                    pure_getters: true,
                     unsafe: true,
-                    unsafe_comps: true,
                     warnings: false
                 }
             })

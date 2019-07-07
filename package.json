@@ -8,13 +8,14 @@
         "build": "parcel build index.html"
     },
     "devDependencies": {
+        "@babel/cli": "^7.5.0",
         "@babel/core": "^7.5.0",
         "@babel/plugin-proposal-class-properties": "7.5.0",
         "@babel/preset-env": "^7.5.0",
         "rollup": "^1.16.6",
         "rollup-plugin-babel": "^4.3.3",
-        "rollup-plugin-terser": "^5.1.1",
-        "tsd-jsdoc": "^2.3.0"
+        "rollup-plugin-terser": "^5.1.1"
     },
-    "keywords": []
+    "keywords": [],
+    "dependencies": {}
 }

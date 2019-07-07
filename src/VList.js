@@ -231,6 +231,11 @@ class VList {
         }
     }
 
+    /**
+     *
+     * @private
+     *
+     */
     _calcTotalHeight() {
         if (typeof this._itemSize !== 'function')
             throw Error(
@@ -397,6 +402,7 @@ class VList {
     /**
      *
      * @private
+     * @deprecated
      *
      */
     _clearPreviousRenderedItems() {
@@ -412,7 +418,6 @@ class VList {
      *
      */
     _renderBatch() {
-        // this._clearPreviousRenderedItems()
         if (this._data.length <= 0) return
 
         const fragment = document.createDocumentFragment()
@@ -468,8 +473,6 @@ class VList {
      *
      */
     _renderBatchNonFixedSize() {
-        this._clearPreviousRenderedItems()
-
         let startTop = 0
 
         for (let i = 0; i < this._startCursor; i++)
@@ -490,8 +493,8 @@ class VList {
             startTop += this._itemSize(i)
         }
 
-        // this._markOldToRemove()
-        // this._enqueueRemoveOldElements()
+        this._markOldToRemove()
+        this._enqueueRemoveOldElements()
 
         this._listContainerDOM.appendChild(fragment)
     }
