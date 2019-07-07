@@ -1,6 +1,6 @@
 {
     "name": "js-vlist",
-    "version": "0.0.1",
+    "version": "0.1.0",
     "author": "M4RC3L05 <joaobat@live.com.pt>",
     "description": "Vanilla js virtual list implementation",
     "license": "MIT",
