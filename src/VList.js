@@ -9,7 +9,7 @@
 class VList {
     /**
      *
-     * The element to bind the list
+     * The element to bind the list.
      *
      * @private
      * @type {HTMLElement}
@@ -19,7 +19,7 @@ class VList {
 
     /**
      *
-     * The array of data to display
+     * The array of data to display.
      *
      * @private
      * @type {Array}
@@ -29,6 +29,11 @@ class VList {
 
     /**
      *
+     * The size of an individual item in the list.
+     * if not fixed size, itemSize if a function that
+     * recieves the index of the element and returns the
+     * corresponding height.
+     *
      * @private
      * @type {number | Function}
      *
@@ -37,13 +42,21 @@ class VList {
 
     /**
      *
+     * A function that is called when a items needs to be created.
+     * recieves the index of the lemente, if the list is scrolling
+     * the item, and the styles in order to display properly in
+     * the list.
+     *
      * @private
-     * @type {(index: number, isScrolling: boolean, item: any, styles: any) => HTMLElement}
+     * @type {Function}
      *
      */
     _renderItem
 
     /**
+     *
+     * The total size (in px) of the list.
+     * This is used to set the height of the list container
      *
      * @private
      * @type {number}
@@ -53,6 +66,9 @@ class VList {
 
     /**
      *
+     * The list conatiner element that the rows are apended to.
+     * Is placed inside the list dom element.
+     *
      * @private
      * @type {HTMLDivElement}
      *
@@ -60,6 +76,9 @@ class VList {
     _listContainerDOM
 
     /**
+     *
+     * Indicates, in the array of data, where to start
+     * rendering to the list container.
      *
      * @private
      * @type {number}
@@ -69,6 +88,9 @@ class VList {
 
     /**
      *
+     * Indicates, in the array of data, where to end
+     * rendering to the list container.
+     *
      * @private
      * @type {number}
      *
@@ -76,6 +98,8 @@ class VList {
     _endCursor
 
     /**
+     *
+     * Indicates how mutch was scrolled.
      *
      * @private
      * @type {number}
@@ -85,6 +109,9 @@ class VList {
 
     /**
      *
+     * A config object, dictating how many itemns should be render
+     * before and after the visible area of the list.
+     *
      * @private
      * @type {{top: number, bottom: number}}
      *
@@ -92,6 +119,8 @@ class VList {
     _offItems
 
     /**
+     *
+     * Indicates whether the user is scrolling.
      *
      * @private
      * @type {boolean}
@@ -101,13 +130,8 @@ class VList {
 
     /**
      *
-     * @private
-     * @type {boolean}
-     *
-     */
-    _hasTicked
-
-    /**
+     * Stores the number of the timeout responsible to
+     * reset the scrolling state (to false).
      *
      * @private
      * @type {number}
@@ -117,6 +141,8 @@ class VList {
 
     /**
      *
+     * Indicates if the items have all the save height.
+     *
      * @private
      * @type {boolean}
      *
@@ -125,6 +151,10 @@ class VList {
 
     /**
      *
+     * Indicates if the previous enqueued task to
+     * remove the old lementes fom the list is completed,
+     * in order to not call multiple times.
+     *
      * @private
      * @type {boolean}
      *
@@ -132,6 +162,10 @@ class VList {
     _removeOldRAF
 
     /**
+     *
+     * Indicates if the previous enqueued task to
+     * handle the scroll event is completed,
+     * in order to not call multiple times.
      *
      * @private
      * @type {boolean}
@@ -150,7 +184,7 @@ class VList {
      * @param {number} [config.width]
      * @param {boolean} config.fixedSize
      * @param {{top: number, bottom: number}} config.offItems
-     * @param {(index: number, isScrolling: boolean, item: any, styles: any) => HTMLElement} config.renderItem
+     * @param {function} config.renderItem
      *
      */
     constructor(config) {
@@ -158,7 +192,6 @@ class VList {
         this._endCursor = 0
         this._offsetTop = 0
         this._isScrolling = false
-        this._hasTicked = false
         this._fixedSize = config.fixedSize
         this._listDOM = config.listElement
         this._data = config.data
@@ -263,7 +296,7 @@ class VList {
     /**
      *
      * @private
-     * @param {any} e the scroll event
+     * @param {Event} e the scroll event
      *
      */
     _onScroll(e) {
@@ -439,7 +472,11 @@ class VList {
 
     /**
      *
+     * Enqueues to the animation frame a function
+     * to remove the old elements from the list container
+     *
      * @private
+     * @method
      *
      */
     _enqueueRemoveOldElements() {

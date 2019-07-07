@@ -19,7 +19,8 @@
     "main": "./dist/vlist.js",
     "files": [
         "dist",
-        "src"
+        "src",
+        "index.d.ts"
     ],
     "npmName": "js-vlist",
     "npmFileMap": [
