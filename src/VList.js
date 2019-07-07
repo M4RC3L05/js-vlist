@@ -228,6 +228,8 @@ class VList {
 
     /**
      *
+     * Sets the new data and rerenders the list.
+     *
      * @type {Array}
      *
      */
@@ -239,7 +241,9 @@ class VList {
 
     /**
      *
-     * @param {number} index
+     * Scrolls the list to the item at specific index.
+     *
+     * @param {number} index the index of the item in the array.
      * @example
      * instance.scrollToIndex(20)
      *
@@ -266,6 +270,8 @@ class VList {
 
     /**
      *
+     * Calculates the height of the list.
+     *
      * @private
      *
      */
@@ -285,8 +291,10 @@ class VList {
 
     /**
      *
+     * Scrolls the list by a offset.
+     *
      * @private
-     * @param {number} offsetTop
+     * @param {number} offsetTop the amount to scroll.
      *
      */
     _scrollTo(offsetTop) {
@@ -295,8 +303,10 @@ class VList {
 
     /**
      *
+     * Handles the list scrolling event
+     *
      * @private
-     * @param {Event} e the scroll event
+     * @param {Event} e The scroll event.
      *
      */
     _onScroll(e) {
@@ -321,8 +331,10 @@ class VList {
 
     /**
      *
+     * Resets the scrolling state (sets to false).
+     *
      * @private
-     * @param {any} e
+     * @param {any} e The scrolling event.
      *
      */
     _resetScrollState(e) {
@@ -332,9 +344,11 @@ class VList {
 
     /**
      *
+     * Sets the visible list styles.
+     *
      * @private
-     * @param {string} width
-     * @param {string} height
+     * @param {string} width The width of the list.
+     * @param {string} height The height of the list.
      *
      */
     _applyStylesToList(width, height) {
@@ -345,8 +359,10 @@ class VList {
 
     /**
      *
+     * Updates the offset top on every scroll.
+     *
      * @private
-     * @param {any} e
+     * @param {any} e The scrolling event.
      *
      */
     _onListScroll(e) {
@@ -357,8 +373,12 @@ class VList {
 
     /**
      *
+     * Creates the items container element that olds the elementes
+     * that are rendered.
+     * Also gets the height of the size of the list.
+     *
      * @private
-     * @returns {HTMLDivElement} the list container
+     * @returns {HTMLDivElement} the list container.
      *
      */
     _createListContainer() {
@@ -373,6 +393,9 @@ class VList {
     }
 
     /**
+     *
+     * Updates the start and end cursors when all the items
+     * have the same size.
      *
      * @private
      *
@@ -393,6 +416,9 @@ class VList {
     }
 
     /**
+     *
+     * Updates the start and end cursors when all the items
+     * not have the same size.
      *
      * @private
      *
@@ -434,6 +460,8 @@ class VList {
 
     /**
      *
+     * Loops to all of the items of the container and removes them.
+     *
      * @private
      * @deprecated
      *
@@ -446,6 +474,9 @@ class VList {
     }
 
     /**
+     *
+     * Renders the items starting from _startCursor up to _endCursor
+     * when items are the same size.
      *
      * @private
      *
@@ -473,10 +504,10 @@ class VList {
     /**
      *
      * Enqueues to the animation frame a function
-     * to remove the old elements from the list container
+     * to remove the old elements from the list container.
+     * Is called before a new batch of elementes are render to the list container
      *
      * @private
-     * @method
      *
      */
     _enqueueRemoveOldElements() {
@@ -494,6 +525,10 @@ class VList {
 
     /**
      *
+     * Marks all the elementes in the container element and sets them
+     * to remove.
+     * Is called before a new batch of elementes are render to the list container
+     *
      * @private
      *
      */
@@ -505,6 +540,9 @@ class VList {
     }
 
     /**
+     *
+     * Renders the items starting from _startCursor up to _endCursor
+     * when items are not the same size.
      *
      * @private
      *
@@ -537,6 +575,11 @@ class VList {
     }
 
     /**
+     *
+     * Calls the method to update the list cursors and the method
+     * to render the next elements to the list container.
+     * Based on the flag fixedSize (_fixedSize in the class), will call the correct methods.
+     * Its callled when anew scroll events is fired
      *
      * @private
      *
