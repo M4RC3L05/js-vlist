@@ -3,13 +3,29 @@
     "version": "0.1.0",
     "author": "M4RC3L05 <joaobat@live.com.pt>",
     "description": "Vanilla js virtual list implementation",
-    "main": "./dist/vlist.js",
     "license": "MIT",
     "homepage": "https://github.com/M4RC3L05/js-vlist",
     "repository": {
         "type": "git",
         "url": "https://github.com/M4RC3L05/js-vlist"
     },
+    "keywords": [
+        "v-list",
+        "virtual list",
+        "js",
+        "javascript",
+        "vlist"
+    ],
+    "main": "./dist/vlist.js",
+    "npmName": "js-vlist",
+    "npmFileMap": [
+        {
+            "basePath": "/dist/",
+            "files": [
+                "*.js"
+            ]
+        }
+    ],
     "scripts": {
         "build": "rollup -c rollup.config.js"
     },
@@ -22,12 +38,5 @@
         "rollup-plugin-babel": "^4.3.3",
         "rollup-plugin-terser": "^5.1.1"
     },
-    "keywords": [
-        "v-list",
-        "virtual list",
-        "js",
-        "javascript",
-        "vlist"
-    ],
     "dependencies": {}
 }
