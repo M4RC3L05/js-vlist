@@ -1,0 +1,20 @@
+{
+    "name": "js-vlist",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.html",
+    "scripts": {
+        "start": "parcel index.html --open",
+        "build": "parcel build index.html"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.5.0",
+        "@babel/plugin-proposal-class-properties": "7.5.0",
+        "@babel/preset-env": "^7.5.0",
+        "babel-loader": "^8.0.6",
+        "tsd-jsdoc": "^2.3.0",
+        "webpack": "^4.35.2",
+        "webpack-cli": "^3.3.5"
+    },
+    "keywords": []
+}
