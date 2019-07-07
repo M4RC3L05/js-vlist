@@ -2,6 +2,8 @@ import VList from './VList'
 
 /**
  *
+ * Creates a new instance of VList with the provided configuration.
+ *
  * @function
  * @param {Object} config
  * @param {HTMLElement} config.listElement
@@ -12,7 +14,7 @@ import VList from './VList'
  * @param {boolean} config.fixedSize
  * @param {Object} config.offItems
  * @param {Function} config.renderItem
- * @returns {VList}
+ * @returns {VList} The VList instance.
  *
  */
 function VirtualList(config) {

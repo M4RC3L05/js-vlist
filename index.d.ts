@@ -34,7 +34,7 @@ interface VListConfig {
     height?: number
     width?: number
     fixedSize: boolean
-    offItemns: OffItems
+    offItems: OffItems
     renderItem: RenderItem
 }
 
