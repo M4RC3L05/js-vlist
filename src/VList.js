@@ -15,7 +15,7 @@ class VList {
      * @type {HTMLElement}
      *
      */
-    _listDOM
+    _listDOM;
 
     /**
      *
@@ -25,7 +25,7 @@ class VList {
      * @type {Array}
      *
      */
-    _data
+    _data;
 
     /**
      *
@@ -38,7 +38,7 @@ class VList {
      * @type {number | Function}
      *
      */
-    _itemSize
+    _itemSize;
 
     /**
      *
@@ -51,7 +51,7 @@ class VList {
      * @type {Function}
      *
      */
-    _renderItem
+    _renderItem;
 
     /**
      *
@@ -62,7 +62,7 @@ class VList {
      * @type {number}
      *
      */
-    _listSize
+    _listSize;
 
     /**
      *
@@ -73,7 +73,7 @@ class VList {
      * @type {HTMLDivElement}
      *
      */
-    _listContainerDOM
+    _listContainerDOM;
 
     /**
      *
@@ -84,7 +84,7 @@ class VList {
      * @type {number}
      *
      */
-    _startCursor
+    _startCursor;
 
     /**
      *
@@ -95,7 +95,7 @@ class VList {
      * @type {number}
      *
      */
-    _endCursor
+    _endCursor;
 
     /**
      *
@@ -105,7 +105,7 @@ class VList {
      * @type {number}
      *
      */
-    _offsetTop
+    _offsetTop;
 
     /**
      *
@@ -116,7 +116,7 @@ class VList {
      * @type {Object}
      *
      */
-    _offItems
+    _offItems;
 
     /**
      *
@@ -126,7 +126,7 @@ class VList {
      * @type {boolean}
      *
      */
-    _isScrolling
+    _isScrolling;
 
     /**
      *
@@ -137,7 +137,7 @@ class VList {
      * @type {number}
      *
      */
-    _resetScrollStateTimeout
+    _resetScrollStateTimeout;
 
     /**
      *
@@ -147,7 +147,7 @@ class VList {
      * @type {boolean}
      *
      */
-    _fixedSize
+    _fixedSize;
 
     /**
      *
@@ -159,7 +159,7 @@ class VList {
      * @type {boolean}
      *
      */
-    _removeOldRAF
+    _removeOldRAF;
 
     /**
      *
@@ -171,7 +171,7 @@ class VList {
      * @type {boolean}
      *
      */
-    _onScrollRAF
+    _onScrollRAF;
 
     /**
      *
@@ -188,44 +188,44 @@ class VList {
      *
      */
     constructor(config) {
-        this._startCursor = 0
-        this._endCursor = 0
-        this._offsetTop = 0
-        this._isScrolling = false
-        this._fixedSize = config.fixedSize
-        this._listDOM = config.listElement
-        this._data = config.data
-        this._offItems = config.offItems
-        this._itemSize = config.itemSize
-        this._renderItem = config.renderItem
+        this._startCursor = 0;
+        this._endCursor = 0;
+        this._offsetTop = 0;
+        this._isScrolling = false;
+        this._fixedSize = config.fixedSize;
+        this._listDOM = config.listElement;
+        this._data = config.data;
+        this._offItems = config.offItems;
+        this._itemSize = config.itemSize;
+        this._renderItem = config.renderItem;
 
         if (this._fixedSize) {
-            if (typeof this._itemSize !== 'number')
+            if (typeof this._itemSize !== "number")
                 throw Error(
-                    'For fixed sized rows, the itemSize config prop must be a number corresponding to the height of the individual item'
-                )
-            this._listSize = this._data.length * this._itemSize
+                    "For fixed sized rows, the itemSize config prop must be a number corresponding to the height of the individual item"
+                );
+            this._listSize = this._data.length * this._itemSize;
         } else {
-            if (typeof this._itemSize !== 'function')
+            if (typeof this._itemSize !== "function")
                 throw Error(
-                    'For non fixed sized rows, the itemSize config prop must be a function that returns  the height of the individual item'
-                )
-            this._listSize = this._calcTotalHeight()
+                    "For non fixed sized rows, the itemSize config prop must be a function that returns  the height of the individual item"
+                );
+            this._listSize = this._calcTotalHeight();
         }
 
-        this._listContainerDOM = this._createListContainer()
-        this._onListScroll = this._onListScroll.bind(this)
+        this._listContainerDOM = this._createListContainer();
+        this._onListScroll = this._onListScroll.bind(this);
         this._applyStylesToList(
-            config.width ? `${config.width}px` : '100%',
-            config.height ? `${config.height}px` : '100%'
-        )
-        this._listDOM.appendChild(this._listContainerDOM)
-        this._listDOM.addEventListener('scroll', this._onScroll.bind(this))
+            config.width ? `${config.width}px` : "100%",
+            config.height ? `${config.height}px` : "100%"
+        );
+        this._listDOM.appendChild(this._listContainerDOM);
+        this._listDOM.addEventListener("scroll", this._onScroll.bind(this));
 
-        this._bootstrapListCleaner()
+        this._bootstrapListCleaner();
 
         // Init render
-        this._render()
+        this._render();
     }
 
     /**
@@ -236,9 +236,9 @@ class VList {
      *
      */
     set data(newData) {
-        if (!Array.isArray(newData)) throw Error('The data must be an array')
-        this._data = newData
-        this._render()
+        if (!Array.isArray(newData)) throw Error("The data must be an array");
+        this._data = newData;
+        this._render();
     }
 
     /**
@@ -251,22 +251,22 @@ class VList {
      *
      */
     scrollToIndex(index) {
-        let finalIndex = -1
+        let finalIndex = -1;
 
-        if (index <= 0) finalIndex = 0
-        else if (index > this._data.length) finalIndex = this._data.length
-        else finalIndex = index
+        if (index <= 0) finalIndex = 0;
+        else if (index > this._data.length) finalIndex = this._data.length;
+        else finalIndex = index;
 
         if (this._fixedSize) {
-            const offsetTop = finalIndex * this._itemSize
+            const offsetTop = finalIndex * this._itemSize;
 
-            this._scrollTo(offsetTop)
+            this._scrollTo(offsetTop);
         } else {
-            let offsetTop = 0
+            let offsetTop = 0;
 
-            for (let i = 0; i < finalIndex; i++) offsetTop += this._itemSize(i)
+            for (let i = 0; i < finalIndex; i++) offsetTop += this._itemSize(i);
 
-            this._scrollTo(offsetTop)
+            this._scrollTo(offsetTop);
         }
     }
 
@@ -286,8 +286,8 @@ class VList {
         setInterval(() => {
             document
                 .querySelectorAll('[data-rm="1"]')
-                .forEach(ele => this._listContainerDOM.removeChild(ele))
-        }, 150)
+                .forEach(ele => this._listContainerDOM.removeChild(ele));
+        }, 150);
     }
 
     /**
@@ -298,17 +298,17 @@ class VList {
      *
      */
     _calcTotalHeight() {
-        if (typeof this._itemSize !== 'function')
+        if (typeof this._itemSize !== "function")
             throw Error(
-                'For non fixed sized rows, the itemSize config prop must be a function that returns  the height of the individual item'
-            )
+                "For non fixed sized rows, the itemSize config prop must be a function that returns  the height of the individual item"
+            );
 
-        let heightACC = 0
+        let heightACC = 0;
 
         for (let i = 0, size = this._data.length; i < size; i++)
-            heightACC += this._itemSize(i)
+            heightACC += this._itemSize(i);
 
-        return heightACC
+        return heightACC;
     }
 
     /**
@@ -320,7 +320,7 @@ class VList {
      *
      */
     _scrollTo(offsetTop) {
-        this._listDOM.scrollTop = offsetTop
+        this._listDOM.scrollTop = offsetTop;
     }
 
     /**
@@ -332,22 +332,22 @@ class VList {
      *
      */
     _onScroll(e) {
-        const currE = e
-        this._isScrolling = true
+        const currE = e;
+        this._isScrolling = true;
         if (this._resetScrollStateTimeout)
-            clearTimeout(this._resetScrollStateTimeout)
+            clearTimeout(this._resetScrollStateTimeout);
 
         this._resetScrollStateTimeout = setTimeout(() => {
-            this._resetScrollStateTimeout = null
-            this._resetScrollState(currE)
-        }, 150)
+            this._resetScrollStateTimeout = null;
+            this._resetScrollState(currE);
+        }, 100);
 
         if (!this._onScrollRAF) {
-            this._onScrollRAF = true
+            this._onScrollRAF = true;
             window.requestAnimationFrame(() => {
-                this._onListScroll(currE)
-                this._onScrollRAF = false
-            })
+                this._onListScroll(currE);
+                this._onScrollRAF = false;
+            });
         }
     }
 
@@ -360,8 +360,8 @@ class VList {
      *
      */
     _resetScrollState(e) {
-        this._isScrolling = false
-        this._render()
+        this._isScrolling = false;
+        this._render();
     }
 
     /**
@@ -374,9 +374,13 @@ class VList {
      *
      */
     _applyStylesToList(width, height) {
-        this._listDOM.style.height = height
-        this._listDOM.style.width = width
-        this._listDOM.style.overflowY = 'scroll'
+        this._listDOM.style.height = height;
+        this._listDOM.style.width = width;
+        this._listDOM.style.position = "relative";
+        this._listDOM.style.overflow = "auto";
+        this._listDOM.style.boxSizing = "border-box";
+        this._listDOM.style.direction = "ltr";
+        this._listDOM.style.willChange = "transform";
     }
 
     /**
@@ -388,9 +392,9 @@ class VList {
      *
      */
     _onListScroll(e) {
-        if (this._offsetTop === e.target.scrollTop) return
-        this._offsetTop = e.target.scrollTop
-        this._render()
+        if (this._offsetTop === e.target.scrollTop) return;
+        this._offsetTop = e.target.scrollTop;
+        this._render();
     }
 
     /**
@@ -404,14 +408,15 @@ class VList {
      *
      */
     _createListContainer() {
-        const div = document.createElement('div')
-        div.style.width = '100%'
-        div.style.top = '0px'
-        div.style.position = 'absolute'
-        div.style.height = `${this._listSize}px`
-        div.style.minHeight = `${this._listSize}px`
-        div.style.maxHeight = `${this._listSize}px`
-        return div
+        const div = document.createElement("div");
+        div.style.width = "100%";
+        div.style.top = "0px";
+        div.style.position = "relative";
+        div.style.height = `${this._listSize}px`;
+        div.style.minHeight = `${this._listSize}px`;
+        div.style.maxHeight = `${this._listSize}px`;
+        div.style.overflow = "hidden";
+        return div;
     }
 
     /**
@@ -423,18 +428,18 @@ class VList {
      *
      */
     _updateListCursors() {
-        const curr = Math.trunc(this._offsetTop / this._itemSize)
+        const curr = Math.trunc(this._offsetTop / this._itemSize);
 
         const visibleItems = Math.trunc(
             this._listDOM.clientHeight / this._itemSize
-        )
+        );
 
-        this._startCursor = Math.max(curr - this._offItems.top, 0)
+        this._startCursor = Math.max(curr - this._offItems.top, 0);
 
         this._endCursor = Math.min(
             curr + visibleItems + this._offItems.bottom,
             this._data.length
-        )
+        );
     }
 
     /**
@@ -446,18 +451,18 @@ class VList {
      *
      */
     _updateListCursorsNonFixedSize() {
-        let startVisible = 0
-        let visibleItems = 0
+        let startVisible = 0;
+        let visibleItems = 0;
 
         for (
             let i = 0, size = this._data.length, accSize = 0;
             i < size;
             accSize += this._itemSize(i), i++
         ) {
-            if (accSize < this._offsetTop) continue
+            if (accSize < this._offsetTop) continue;
 
-            startVisible = i
-            break
+            startVisible = i;
+            break;
         }
 
         for (
@@ -466,18 +471,18 @@ class VList {
             accSize += this._itemSize(i), i++
         ) {
             if (accSize < this._listDOM.clientHeight) {
-                visibleItems += 1
-                continue
+                visibleItems += 1;
+                continue;
             }
 
-            break
+            break;
         }
 
-        this._startCursor = Math.max(startVisible - this._offItems.top, 0)
+        this._startCursor = Math.max(startVisible - this._offItems.top, 0);
         this._endCursor = Math.min(
             startVisible + visibleItems + this._offItems.bottom,
             this._data.length
-        )
+        );
     }
 
     /**
@@ -492,7 +497,7 @@ class VList {
         while (this._listContainerDOM.firstChild)
             this._listContainerDOM.removeChild(
                 this._listContainerDOM.firstChild
-            )
+            );
     }
 
     /**
@@ -504,22 +509,23 @@ class VList {
      *
      */
     _renderBatch() {
-        if (this._data.length <= 0) return
+        if (this._data.length <= 0) return;
 
-        const fragment = document.createDocumentFragment()
+        const fragment = document.createDocumentFragment();
 
         for (let i = this._startCursor; i < this._endCursor; i++)
             fragment.appendChild(
                 this._renderItem(i, this._isScrolling, this._data[i], {
-                    position: 'absolute',
-
-                    top: `${i * this._itemSize}px`
+                    position: "absolute",
+                    height: `${this._itemSize}px`,
+                    top: `${i * this._itemSize}px`,
+                    width: "100%"
                 })
-            )
+            );
 
-        this._markOldToRemove()
+        this._markOldToRemove();
 
-        this._listContainerDOM.appendChild(fragment)
+        this._listContainerDOM.appendChild(fragment);
     }
 
     /**
@@ -534,14 +540,14 @@ class VList {
      */
     _enqueueRemoveOldElements() {
         if (!this._removeOldRAF) {
-            this._removeOldRAF = true
+            this._removeOldRAF = true;
             window.requestAnimationFrame(() => {
                 document
                     .querySelectorAll('[data-rm="1"]')
-                    .forEach(ele => this._listContainerDOM.removeChild(ele))
+                    .forEach(ele => this._listContainerDOM.removeChild(ele));
 
-                this._removeOldRAF = false
-            })
+                this._removeOldRAF = false;
+            });
         }
     }
 
@@ -556,8 +562,8 @@ class VList {
      */
     _markOldToRemove() {
         for (let i = 0; i < this._listContainerDOM.childNodes.length; i++) {
-            this._listContainerDOM.childNodes[i].style.display = 'none'
-            this._listContainerDOM.childNodes[i].setAttribute('data-rm', '1')
+            this._listContainerDOM.childNodes[i].style.display = "none";
+            this._listContainerDOM.childNodes[i].setAttribute("data-rm", "1");
         }
     }
 
@@ -570,29 +576,29 @@ class VList {
      *
      */
     _renderBatchNonFixedSize() {
-        let startTop = 0
+        let startTop = 0;
 
         for (let i = 0; i < this._startCursor; i++)
-            startTop += this._itemSize(i)
+            startTop += this._itemSize(i);
 
-        const fragment = document.createDocumentFragment()
+        const fragment = document.createDocumentFragment();
 
         for (let i = this._startCursor; i < this._endCursor; i++) {
             fragment.appendChild(
                 this._renderItem(i, this._isScrolling, this._data[i], {
-                    position: 'absolute',
+                    position: "absolute",
                     top: `${startTop}px`,
 
                     height: `${this._itemSize(i)}px`
                 })
-            )
+            );
 
-            startTop += this._itemSize(i)
+            startTop += this._itemSize(i);
         }
 
-        this._markOldToRemove()
+        this._markOldToRemove();
 
-        this._listContainerDOM.appendChild(fragment)
+        this._listContainerDOM.appendChild(fragment);
     }
 
     /**
@@ -607,13 +613,13 @@ class VList {
      */
     _render() {
         if (!this._fixedSize) {
-            this._updateListCursorsNonFixedSize()
-            this._renderBatchNonFixedSize()
+            this._updateListCursorsNonFixedSize();
+            this._renderBatchNonFixedSize();
         } else {
-            this._updateListCursors()
-            this._renderBatch()
+            this._updateListCursors();
+            this._renderBatch();
         }
     }
 }
 
-export default VList
+export default VList;
